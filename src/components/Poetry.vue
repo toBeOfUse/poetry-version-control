@@ -4,7 +4,7 @@
         :style="gradientBackground"
         @mousemove="updateMousePos"
         @mouseenter.self="gradientActive = true"
-        @mouseleave="gradientOff"
+        @mouseleave="gradientActive = false"
         class="background"
     >
         <template v-for="linePair in lines">
@@ -26,7 +26,7 @@
 </template>
 
 <script setup>
-import { ref, reactive } from "vue";
+import { computed, ref } from "vue";
 
 const lines = [
     ["This is line 1", "Other version of line 1"],
@@ -34,10 +34,9 @@ const lines = [
 ];
 const whichVersion = ref(true);
 const gradientActive = ref(false);
-const gradientOff = () => {
-    gradientActive.value = false;
-    gradientBackground.background = makeGradient(0);
-};
+const mousePosPercent = ref(0);
+const backgroundContainer = ref(null);
+
 const makeGradient = centerPos =>
     gradientActive.value
         ? `linear-gradient(white -10%, ` +
@@ -48,19 +47,19 @@ const makeGradient = centerPos =>
           `white calc(${centerPos}% + 40px), ` +
           `white 110%)`
         : "white";
-const gradientBackground = reactive({
-    background: makeGradient(0),
+const gradientBackground = computed(() => ({
+    background: makeGradient(mousePosPercent.value),
     backgroundClip: "text"
-});
-const backgroundContainer = ref(null);
+}));
+
 const updateMousePos = event => {
     if (!backgroundContainer.value) {
         return;
     }
     const box = backgroundContainer.value.getBoundingClientRect();
-    const percent = ((event.clientY - box.top) / box.height) * 100;
-    gradientBackground.background = makeGradient(percent);
+    mousePosPercent.value = ((event.clientY - box.top) / box.height) * 100;
 };
+
 const styleText = zeroOrOne => ({
     color: whichVersion.value == !!zeroOrOne ? "rgba(1,1,1,0.1)" : "black",
     fontFamily: zeroOrOne ? "OpenSauceOne" : "Crimson Pro",
