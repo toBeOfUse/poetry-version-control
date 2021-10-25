@@ -7,7 +7,7 @@
         @mouseleave="gradientActive = false"
         class="background"
     >
-        <svg viewBox="0 0 1000 250">
+        <svg viewBox="0 0 1000 250" style="margin-bottom: -18px">
             <text x="0" y="100" font-size="85" :style="{ fontFamily: dominantFont }">
                 Selected Works of
             </text>
@@ -40,13 +40,17 @@
 </template>
 
 <script setup>
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 import poetry from "../assets/lines.json";
 
 const whichVersion = ref(true);
 const gradientActive = ref(false);
 const mousePosPercent = ref(0);
 const backgroundContainer = ref(null);
+
+watch(whichVersion, () => {
+    gradientActive.value = false;
+});
 
 const makeGradient = centerPos =>
     `linear-gradient(white -10%, ` +
@@ -70,7 +74,7 @@ const updateMousePos = event => {
 };
 
 const styleText = zeroOrOne => ({
-    color: whichVersion.value == !!zeroOrOne ? "rgba(1,1,1,0.1)" : "black"
+    color: whichVersion.value == !!zeroOrOne ? "rgba(1,1,1,0.15)" : "black"
 });
 const classifyText = zeroOrOne => (zeroOrOne ? "sans" : "serif");
 const dominantFont = computed(() => (whichVersion.value ? "Crimson Pro" : "OpenSauceOne"));
@@ -89,6 +93,13 @@ const dominantFont = computed(() => (whichVersion.value ? "Crimson Pro" : "OpenS
 
 @import url("https://fonts.googleapis.com/css2?family=Crimson+Pro&display=swap");
 
+html {
+    font-size: 16px;
+    @media (max-width: 700px) {
+        font-size: 12px;
+    }
+}
+
 body {
     margin: 0;
 }
@@ -97,15 +108,15 @@ h2 {
     font-weight: normal;
     font-style: italic;
     height: 30px;
-    font-size: 25px;
+    font-size: 2rem;
     margin: 15px 0;
     &.serif {
         font-family: "Crimson Pro";
-        font-size: 30px;
+        font-size: 2rem;
     }
     &.sans {
         font-family: "OpenSauceOne";
-        font-size: 25px;
+        font-size: 1.6rem;
     }
 }
 
@@ -114,17 +125,13 @@ h2 {
     transition: color 0.25s;
     line-height: 1.5;
     white-space: pre-wrap;
-    @media (max-width: 700px) {
-        font-size: 90%;
-        line-height: 1.2;
-    }
     &.serif {
         font-family: "Crimson Pro";
-        font-size: 1.2em;
+        font-size: 1.2rem;
     }
     &.sans {
         font-family: "OpenSauceOne";
-        font-size: 1em;
+        font-size: 1rem;
     }
 }
 
@@ -145,7 +152,7 @@ h2 {
     right: 20%;
     @media (max-width: 700px) {
         top: 20px;
-        right: -20px;
+        right: 0;
     }
 }
 
