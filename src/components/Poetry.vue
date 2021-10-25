@@ -2,9 +2,12 @@
     <div
         ref="backgroundContainer"
         :style="gradientBackground"
-        @mousemove="updateMousePos"
+        @mousemove="updatePointerPos"
+        @click="updatePointerPos"
         @mouseenter.self="gradientActive = true"
         @mouseleave="gradientActive = false"
+        @touchstart="gradientActive = true"
+        @touchmove.prevent="updatePointerPos"
         class="background"
     >
         <svg viewBox="0 0 1000 250" style="margin-bottom: -18px">
@@ -29,13 +32,37 @@
             </template>
         </template>
     </div>
-    <div id="gutter">
+    <div id="gutter" @click="gradientActive = false">
         <div class="pretty p-switch p-fill" id="toggle">
             <input type="checkbox" v-model="whichVersion" />
             <div class="state">
                 <label>&nbsp;</label>
             </div>
         </div>
+        <svg id="scrolly">
+            <defs>
+                <linearGradient id="fadeIn" gradientTransform="rotate(90)">
+                    <stop offset="0%" stop-color="white" />
+                    <stop offset="100%" stop-color="white" stop-opacity="0" />
+                </linearGradient>
+                <linearGradient id="fadeOut" gradientTransform="rotate(90)">
+                    <stop offset="0%" stop-color="white" stop-opacity="0" />
+                    <stop offset="100%" stop-color="white" />
+                </linearGradient>
+            </defs>
+            <line
+                v-for="i in 25"
+                :key="i"
+                x1="0px"
+                x2="30px"
+                :y1="i * 20 - (scrollPos % 20) + 'px'"
+                :y2="i * 20 - (scrollPos % 20) + 'px'"
+                stroke="black"
+                stroke-width="2px"
+            />
+            <rect x="0" y="0" width="40px" height="30px" fill="url(#fadeIn)" />
+            <rect x="0" y="470px" width="40px" height="30px" fill="url(#fadeOut)" />
+        </svg>
     </div>
 </template>
 
@@ -47,6 +74,11 @@ const whichVersion = ref(true);
 const gradientActive = ref(false);
 const mousePosPercent = ref(0);
 const backgroundContainer = ref(null);
+const scrollPos = ref(0);
+
+window.addEventListener("scroll", () => {
+    scrollPos.value = window.scrollY;
+});
 
 watch(whichVersion, () => {
     gradientActive.value = false;
@@ -65,12 +97,13 @@ const gradientBackground = computed(() => ({
     backgroundClip: "text"
 }));
 
-const updateMousePos = event => {
+const updatePointerPos = event => {
     if (!backgroundContainer.value) {
         return;
     }
     const box = backgroundContainer.value.getBoundingClientRect();
-    mousePosPercent.value = ((event.clientY - box.top) / box.height) * 100;
+    const eventY = event.clientY || event.touches[0].clientY;
+    mousePosPercent.value = ((eventY - box.top) / box.height) * 100;
 };
 
 const styleText = zeroOrOne => ({
@@ -158,9 +191,19 @@ h2 {
 
 #gutter {
     @media (max-width: 700px) {
-        background-color: lightgray;
         width: 100%;
         flex-shrink: 1;
+    }
+}
+
+#scrolly {
+    position: fixed;
+    right: 10px;
+    top: 100px;
+    width: 30px;
+    height: 500px;
+    @media (min-width: 700px) {
+        display: none;
     }
 }
 
