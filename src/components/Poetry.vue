@@ -33,11 +33,11 @@
         </template>
     </div>
     <div id="gutter" @click="gradientActive = false">
-        <div class="pretty p-switch p-fill" id="toggle">
-            <input type="checkbox" v-model="whichVersion" />
-            <div class="state">
-                <label>&nbsp;</label>
-            </div>
+        <div id="toggle">
+            <label class="switch">
+                <input type="checkbox" checked v-model="whichVersion" />
+                <span class="slider"></span>
+            </label>
         </div>
         <svg id="scrolly">
             <defs>
@@ -175,24 +175,22 @@ h2 {
         width: 85%;
         max-width: unset;
     }
-    flex-shrink: 0;
     padding: 5px;
 }
 
 #toggle {
     position: fixed;
     top: 100px;
-    right: 20%;
+    right: 50px;
     @media (max-width: 700px) {
-        top: 20px;
-        right: 0;
+        top: 30px;
+        right: 10px;
     }
 }
 
 #gutter {
     @media (max-width: 700px) {
-        width: 100%;
-        flex-shrink: 1;
+        width: 50px;
     }
 }
 
@@ -215,5 +213,60 @@ h2 {
     @media (max-width: 700px) {
         align-items: stretch;
     }
+}
+
+// https://www.w3schools.com/howto/howto_css_switch.asp
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 30px;
+    height: 17px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+    border-radius: 17px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 13px;
+    width: 13px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #787878;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #787878;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(13px);
+    -ms-transform: translateX(13px);
+    transform: translateX(13px);
 }
 </style>
