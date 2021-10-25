@@ -113,6 +113,7 @@ h2 {
     margin: 6px 0;
     transition: color 0.25s;
     line-height: 1.5;
+    white-space: pre-wrap;
     @media (max-width: 700px) {
         font-size: 90%;
         line-height: 1.2;
