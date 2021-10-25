@@ -1,15 +1,5 @@
 <template>
-    <div
-        ref="backgroundContainer"
-        :style="gradientBackground"
-        @mousemove="updatePointerPos"
-        @click="updatePointerPos"
-        @mouseenter.self="gradientActive = true"
-        @mouseleave="gradientActive = false"
-        @touchstart="gradientActive = true"
-        @touchmove.prevent="updatePointerPos"
-        class="background"
-    >
+    <div ref="backgroundContainer" :style="gradientBackground" class="background">
         <svg viewBox="0 0 1000 250" style="margin-bottom: -18px">
             <text x="0" y="100" font-size="85" :style="{ fontFamily: dominantFont }">
                 Selected Works of
@@ -20,16 +10,26 @@
         </svg>
         <template v-for="poem in poetry" :key="poem.title">
             <h2 :class="classifyText(Number(!whichVersion))">{{ poem.title }}</h2>
-            <template v-for="(line, i) in poem.lines">
-                <template v-for="subLine in line.split('\n')" :key="subLine">
-                    <p
-                        class="poetryLine"
-                        :class="classifyText(i % 2)"
-                        :style="styleText(i % 2)"
-                        v-html="subLine"
-                    />
+            <div
+                class="fullPoem"
+                @mousemove="updatePointerPos"
+                @click="updatePointerPos"
+                @mouseenter.self="gradientActive = true"
+                @mouseleave="gradientActive = false"
+                @touchstart="gradientActive = true"
+                @touchmove.prevent="updatePointerPos"
+            >
+                <template v-for="(line, i) in poem.lines">
+                    <template v-for="subLine in line.split('\n')" :key="subLine">
+                        <p
+                            class="poetryLine"
+                            :class="classifyText(i % 2)"
+                            :style="styleText(i % 2)"
+                            v-html="subLine"
+                        />
+                    </template>
                 </template>
-            </template>
+            </div>
         </template>
     </div>
     <div id="gutter" @click="gradientActive = false">
@@ -206,7 +206,8 @@ h2 {
 #scrolly {
     position: fixed;
     right: 10px;
-    top: 100px;
+    top: 50%;
+    transform: translateY(-50%);
     width: 30px;
     height: 500px;
     @media (min-width: 700px) {
