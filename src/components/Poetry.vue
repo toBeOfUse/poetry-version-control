@@ -7,12 +7,15 @@
         @mouseleave="gradientActive = false"
         class="background"
     >
-        <template v-for="linePair in lines">
-            <template v-for="(lines, zeroOrOne) in linePair">
-                <template v-for="line in lines.split('\n')" :key="line">
-                    <p class="poetryLine" :style="styleText(zeroOrOne)">
-                        {{ line }}
-                    </p>
+        <template v-for="poem in poetry" :key="poem.title">
+            <h2 :style="{ fontFamily: dominantFont }">{{ poem.title }}</h2>
+            <template v-for="linePair in poem.unitsOfMeaning">
+                <template v-for="(lines, zeroOrOne) in linePair">
+                    <template v-for="line in lines.split('\n')" :key="line">
+                        <p class="poetryLine" :style="styleText(zeroOrOne)">
+                            {{ line }}
+                        </p>
+                    </template>
                 </template>
             </template>
         </template>
@@ -27,28 +30,23 @@
 
 <script setup>
 import { computed, ref } from "vue";
+import poetry from "../assets/lines.json";
 
-const lines = [
-    ["This is line 1", "Other version of line 1"],
-    ["Line 2 gets turned into two lines", "Line 2\nGets turned into two lines"]
-];
 const whichVersion = ref(true);
 const gradientActive = ref(false);
 const mousePosPercent = ref(0);
 const backgroundContainer = ref(null);
 
 const makeGradient = centerPos =>
-    gradientActive.value
-        ? `linear-gradient(white -10%, ` +
-          `white calc(${centerPos}% - 40px), ` +
-          `black calc(${centerPos}% - 20px), ` +
-          `black ${centerPos}%, ` +
-          `black calc(${centerPos}% + 20px), ` +
-          `white calc(${centerPos}% + 40px), ` +
-          `white 110%)`
-        : "white";
+    `linear-gradient(white -10%, ` +
+    `white calc(${centerPos}% - 40px), ` +
+    `black calc(${centerPos}% - 20px), ` +
+    `black ${centerPos}%, ` +
+    `black calc(${centerPos}% + 20px), ` +
+    `white calc(${centerPos}% + 40px), ` +
+    `white 110%)`;
 const gradientBackground = computed(() => ({
-    background: makeGradient(mousePosPercent.value),
+    background: gradientActive.value ? makeGradient(mousePosPercent.value) : "white",
     backgroundClip: "text"
 }));
 
@@ -65,6 +63,7 @@ const styleText = zeroOrOne => ({
     fontFamily: zeroOrOne ? "OpenSauceOne" : "Crimson Pro",
     fontSize: zeroOrOne ? "1em" : "1.3em"
 });
+const dominantFont = computed(() => (whichVersion.value ? "OpenSzuceOne" : "Crimson Pro"));
 </script>
 
 <style lang="scss">
@@ -79,6 +78,12 @@ const styleText = zeroOrOne => ({
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Crimson+Pro&display=swap");
+
+h2 {
+    font-family: "Crimson Pro";
+    font-weight: normal;
+    font-style: italic;
+}
 
 .poetryLine {
     margin: 0;
