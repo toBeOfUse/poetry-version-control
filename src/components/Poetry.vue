@@ -7,12 +7,24 @@
         @mouseleave="gradientActive = false"
         class="background"
     >
-        <h1 :style="{ fontFamily: dominantFont }">Selected Works of Gaius Valerius Catullus</h1>
+        <svg viewBox="0 0 1000 250">
+            <text x="0" y="100" font-size="85" :style="{ fontFamily: dominantFont }">
+                Selected Works of
+            </text>
+            <text x="0" y="200" font-size="85" :style="{ fontFamily: dominantFont }">
+                Gaius Valerius Catullus
+            </text>
+        </svg>
         <template v-for="poem in poetry" :key="poem.title">
-            <h2 :style="{ fontFamily: dominantFont }">{{ poem.title }}</h2>
+            <h2 :class="classifyText(Number(!whichVersion))">{{ poem.title }}</h2>
             <template v-for="(line, i) in poem.lines">
                 <template v-for="subLine in line.split('\n')" :key="subLine">
-                    <p class="poetryLine" :style="styleText(i % 2)" v-html="subLine" />
+                    <p
+                        class="poetryLine"
+                        :class="classifyText(i % 2)"
+                        :style="styleText(i % 2)"
+                        v-html="subLine"
+                    />
                 </template>
             </template>
         </template>
@@ -38,11 +50,11 @@ const backgroundContainer = ref(null);
 
 const makeGradient = centerPos =>
     `linear-gradient(white -10%, ` +
-    `white calc(${centerPos}% - 40px), ` +
-    `black calc(${centerPos}% - 20px), ` +
+    `white calc(${centerPos}% - 80px), ` +
+    `black calc(${centerPos}% - 40px), ` +
     `black ${centerPos}%, ` +
-    `black calc(${centerPos}% + 20px), ` +
-    `white calc(${centerPos}% + 40px), ` +
+    `black calc(${centerPos}% + 40px), ` +
+    `white calc(${centerPos}% + 80px), ` +
     `white 110%)`;
 const gradientBackground = computed(() => ({
     background: gradientActive.value ? makeGradient(mousePosPercent.value) : "white",
@@ -58,10 +70,9 @@ const updateMousePos = event => {
 };
 
 const styleText = zeroOrOne => ({
-    color: whichVersion.value == !!zeroOrOne ? "rgba(1,1,1,0.1)" : "black",
-    fontFamily: zeroOrOne ? "OpenSauceOne" : "Crimson Pro",
-    fontSize: zeroOrOne ? "1em" : "1.2em"
+    color: whichVersion.value == !!zeroOrOne ? "rgba(1,1,1,0.1)" : "black"
 });
+const classifyText = zeroOrOne => (zeroOrOne ? "sans" : "serif");
 const dominantFont = computed(() => (whichVersion.value ? "Crimson Pro" : "OpenSauceOne"));
 </script>
 
@@ -82,32 +93,46 @@ body {
     margin: 0;
 }
 
-h1 {
-    font-weight: normal;
-    font-size: 35px;
-}
-
 h2 {
     font-weight: normal;
     font-style: italic;
     height: 30px;
     font-size: 25px;
+    margin: 15px 0;
+    &.serif {
+        font-family: "Crimson Pro";
+        font-size: 30px;
+    }
+    &.sans {
+        font-family: "OpenSauceOne";
+        font-size: 25px;
+    }
 }
 
 .poetryLine {
     margin: 6px 0;
     transition: color 0.25s;
     line-height: 1.5;
-    @media (max-height: 700px) {
-        font-size: 70%;
+    @media (max-width: 700px) {
+        font-size: 90%;
         line-height: 1.2;
+    }
+    &.serif {
+        font-family: "Crimson Pro";
+        font-size: 1.2em;
+    }
+    &.sans {
+        font-family: "OpenSauceOne";
+        font-size: 1em;
     }
 }
 
 .background {
-    width: 650px;
+    width: 50%;
+    max-width: 650px;
     @media (max-width: 700px) {
         width: 85%;
+        max-width: unset;
     }
     flex-shrink: 0;
     padding: 5px;
@@ -116,9 +141,9 @@ h2 {
 #toggle {
     position: fixed;
     top: 100px;
-    right: 250px;
+    right: 20%;
     @media (max-width: 700px) {
-        top: 50px;
+        top: 20px;
         right: -20px;
     }
 }
