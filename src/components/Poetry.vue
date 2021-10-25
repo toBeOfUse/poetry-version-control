@@ -7,21 +7,22 @@
         @mouseleave="gradientActive = false"
         class="background"
     >
+        <h1 :style="{ fontFamily: dominantFont }">Selected Works of Gaius Valerius Catullus</h1>
         <template v-for="poem in poetry" :key="poem.title">
             <h2 :style="{ fontFamily: dominantFont }">{{ poem.title }}</h2>
-            <template v-for="linePair in poem.unitsOfMeaning">
-                <template v-for="(lines, zeroOrOne) in linePair">
-                    <template v-for="line in lines.split('\n')" :key="line">
-                        <p class="poetryLine" :style="styleText(zeroOrOne)" v-html="line" />
-                    </template>
+            <template v-for="(line, i) in poem.lines">
+                <template v-for="subLine in line.split('\n')" :key="subLine">
+                    <p class="poetryLine" :style="styleText(i % 2)" v-html="subLine" />
                 </template>
             </template>
         </template>
     </div>
-    <div class="pretty p-switch p-fill">
-        <input type="checkbox" v-model="whichVersion" />
-        <div class="state">
-            <label>&nbsp;</label>
+    <div id="gutter">
+        <div class="pretty p-switch p-fill" id="toggle">
+            <input type="checkbox" v-model="whichVersion" />
+            <div class="state">
+                <label>&nbsp;</label>
+            </div>
         </div>
     </div>
 </template>
@@ -59,7 +60,7 @@ const updateMousePos = event => {
 const styleText = zeroOrOne => ({
     color: whichVersion.value == !!zeroOrOne ? "rgba(1,1,1,0.1)" : "black",
     fontFamily: zeroOrOne ? "OpenSauceOne" : "Crimson Pro",
-    fontSize: zeroOrOne ? "1em" : "1.3em"
+    fontSize: zeroOrOne ? "1em" : "1.2em"
 });
 const dominantFont = computed(() => (whichVersion.value ? "Crimson Pro" : "OpenSauceOne"));
 </script>
@@ -77,8 +78,16 @@ const dominantFont = computed(() => (whichVersion.value ? "Crimson Pro" : "OpenS
 
 @import url("https://fonts.googleapis.com/css2?family=Crimson+Pro&display=swap");
 
+body {
+    margin: 0;
+}
+
+h1 {
+    font-weight: normal;
+    font-size: 35px;
+}
+
 h2 {
-    font-family: "Crimson Pro";
     font-weight: normal;
     font-style: italic;
     height: 30px;
@@ -89,10 +98,37 @@ h2 {
     margin: 6px 0;
     transition: color 0.25s;
     line-height: 1.5;
+    @media (max-height: 700px) {
+        font-size: 70%;
+        line-height: 1.2;
+    }
 }
 
 .background {
-    width: 40%;
+    width: 650px;
+    @media (max-width: 700px) {
+        width: 85%;
+    }
+    flex-shrink: 0;
+    padding: 5px;
+}
+
+#toggle {
+    position: fixed;
+    top: 100px;
+    right: 250px;
+    @media (max-width: 700px) {
+        top: 50px;
+        right: -20px;
+    }
+}
+
+#gutter {
+    @media (max-width: 700px) {
+        background-color: lightgray;
+        width: 100%;
+        flex-shrink: 1;
+    }
 }
 
 #app {
@@ -100,5 +136,8 @@ h2 {
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
+    @media (max-width: 700px) {
+        align-items: stretch;
+    }
 }
 </style>
