@@ -96,10 +96,13 @@ const makeGradient = centerPos =>
     `black calc(${centerPos}% + 40px), ` +
     `white calc(${centerPos}% + 80px), ` +
     `white 110%)`;
-const gradientBackground = computed(() => ({
-    background: gradientActive.value ? makeGradient(mousePosPercent.value) : "white",
-    backgroundClip: "text"
-}));
+const gradientBackground = computed(() => {
+    if (gradientActive.value) {
+        return { backgroundImage: makeGradient(mousePosPercent.value) };
+    } else {
+        return { backgroundColor: "white" };
+    }
+});
 
 const updatePointerPos = event => {
     if (!backgroundContainer.value) {
@@ -180,6 +183,8 @@ h2 {
         max-width: unset;
     }
     padding: 5px;
+    background-clip: text;
+    -webkit-background-clip: text;
 }
 
 #toggle {
