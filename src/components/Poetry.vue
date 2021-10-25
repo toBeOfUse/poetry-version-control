@@ -12,9 +12,7 @@
             <template v-for="linePair in poem.unitsOfMeaning">
                 <template v-for="(lines, zeroOrOne) in linePair">
                     <template v-for="line in lines.split('\n')" :key="line">
-                        <p class="poetryLine" :style="styleText(zeroOrOne)">
-                            {{ line }}
-                        </p>
+                        <p class="poetryLine" :style="styleText(zeroOrOne)" v-html="line" />
                     </template>
                 </template>
             </template>
@@ -63,7 +61,7 @@ const styleText = zeroOrOne => ({
     fontFamily: zeroOrOne ? "OpenSauceOne" : "Crimson Pro",
     fontSize: zeroOrOne ? "1em" : "1.3em"
 });
-const dominantFont = computed(() => (whichVersion.value ? "OpenSzuceOne" : "Crimson Pro"));
+const dominantFont = computed(() => (whichVersion.value ? "Crimson Pro" : "OpenSauceOne"));
 </script>
 
 <style lang="scss">
@@ -83,12 +81,14 @@ h2 {
     font-family: "Crimson Pro";
     font-weight: normal;
     font-style: italic;
+    height: 30px;
+    font-size: 25px;
 }
 
 .poetryLine {
-    margin: 0;
-    padding: 6px 0;
+    margin: 6px 0;
     transition: color 0.25s;
+    line-height: 1.5;
 }
 
 .background {
@@ -99,6 +99,6 @@ h2 {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 </style>
