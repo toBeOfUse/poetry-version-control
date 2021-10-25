@@ -49,16 +49,20 @@
                     <stop offset="0%" stop-color="white" stop-opacity="0" />
                     <stop offset="100%" stop-color="white" />
                 </linearGradient>
+                <linearGradient id="ridge" gradientTransform="rotate(90)">
+                    <stop offset="0%" stop-color="#ccc" />
+                    <stop offset="100%" stop-color="#333" />
+                </linearGradient>
             </defs>
-            <line
+            <rect
                 v-for="i in 25"
                 :key="i"
-                x1="0px"
-                x2="30px"
-                :y1="i * 20 - (scrollPos % 20) + 'px'"
-                :y2="i * 20 - (scrollPos % 20) + 'px'"
-                stroke="black"
-                stroke-width="2px"
+                x="0px"
+                width="30px"
+                :y="i * 20 - (scrollPos % 20) + 'px'"
+                height="4px"
+                fill="url(#ridge)"
+                ry="2px"
             />
             <rect x="0" y="0" width="40px" height="30px" fill="url(#fadeIn)" />
             <rect x="0" y="470px" width="40px" height="30px" fill="url(#fadeOut)" />
