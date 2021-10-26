@@ -2,6 +2,7 @@
 node_modules
 /dist
 
+push.ps1
 
 # local env files
 .env.local
