@@ -125,8 +125,8 @@ const dominantFont = computed(() => (whichVersion.value ? "Crimson Pro" : "OpenS
 
 @font-face {
     font-family: "OpenSauceOne";
-    src: url("/fonts/opensauceone-regular-webfont.woff2") format("woff2"),
-        url("/fonts/opensauceone-regular-webfont.woff") format("woff");
+    src: url("../../public/fonts/opensauceone-regular-webfont.woff2") format("woff2"),
+        url("../../public/fonts/opensauceone-regular-webfont.woff") format("woff");
     font-weight: normal;
     font-style: normal;
 }
