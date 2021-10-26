@@ -14,8 +14,15 @@
             <span class="sans">Daniel Lavery - </span>
             <span class="extra-serif">Richard Burton</span>
         </p>
+        <p class="toc" :class="poetry[0].styles[Number(!whichVersion)]">
+            Contents:
+            <template v-for="(poem, i) in poetry" :key="poem.title">
+                <a :href="'#' + poem.title">{{ poem.title }}</a>
+                {{ i == poetry.length - 1 ? "" : " - " }}
+            </template>
+        </p>
         <template v-for="poem in poetry" :key="poem.title">
-            <h2 :class="poem.styles[Number(!whichVersion)]">{{ poem.title }}</h2>
+            <h2 :class="poem.styles[Number(!whichVersion)]" :id="poem.title">{{ poem.title }}</h2>
             <div
                 class="fullPoem"
                 @mousemove="updatePointerPos"
@@ -161,6 +168,10 @@ hr {
     margin: 20px 0;
 }
 
+a {
+    color: black;
+}
+
 $serif-scale-factor: 1.2;
 .serif {
     font-family: "Crimson Pro";
@@ -179,17 +190,16 @@ $extra-serif-scale-factor: 1.1;
 h2 {
     font-weight: normal;
     font-style: italic;
-    height: 30px;
-    font-size: 2rem;
+    height: 1.6rem;
     margin: 15px 0;
     &.serif {
-        font-size: 1.6rem * $serif-scale-factor;
+        font-size: 1.4rem * $serif-scale-factor;
     }
     &.sans {
-        font-size: 1.6rem * $sans-scale-factor;
+        font-size: 1.4rem * $sans-scale-factor;
     }
     &.extra-serif {
-        font-size: 1.6rem * $extra-serif-scale-factor;
+        font-size: 1.4rem * $extra-serif-scale-factor;
     }
 }
 
@@ -218,6 +228,18 @@ h2 {
     }
     .extra-serif {
         font-size: 1.1rem * $extra-serif-scale-factor;
+    }
+}
+
+.toc {
+    &.serif {
+        font-size: 0.8rem * $serif-scale-factor;
+    }
+    &.sans {
+        font-size: 0.8rem * $sans-scale-factor;
+    }
+    &.extra-serif {
+        font-size: 0.8rem * $extra-serif-scale-factor;
     }
 }
 
