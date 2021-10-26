@@ -1,6 +1,10 @@
 [
     {
         "title": "two.",
+        "styles": [
+            "serif",
+            "sans"
+        ],
         "lines": [
             "little bird, her darling",
             "My girlfriend has a bird.",
@@ -20,6 +24,10 @@
     },
     {
         "title": "three.",
+        "styles": [
+            "serif",
+            "sans"
+        ],
         "lines": [
             "weep, Venus; Cupid, weep\nweep everyone who loves nice things",
             "My girlfriend’s bird died.\nMy girlfriend’s bird died, oh man,",
@@ -36,6 +44,43 @@
             "such a pretty little bird\njust had to grab it, didn't you?\nit's just too damned bad.\nO birdie, birdie, birdie, see what you've done to her",
             "fucking big shot, big ups to you and your dread arm for making her cry all afternoon, well done there.",
             "she's crying, they're all swollen and red\nher lovely eyes."
+        ]
+    },
+    {
+        "title": "sixteen.",
+        "styles": [
+            "extra-serif",
+            "serif"
+        ],
+        "lines": [
+            "I'll paedicate you twain and irrumate you",
+            "nuts to you boys, nuts and go to hell",
+            "Pathic Aurélius! Fúrius, libertines!",
+            "you pair of little snots, you lacy pants\n    Aurelius\n        and\n    Furius",
+            "Who durst determine from my versicles",
+            "you read my verses, found a D---y W--d (goodness gracious deary me!)",
+            "Which seem o'er softy, that I'm scant of shame.",
+            "and came to the\nproFOUND conCLUsion\nthat I was just a dirty devil too\nNOW LOOK",
+            "For pious poet it behoves be chaste",
+            "a poet's supposed to have some sense\nof decency and taste",
+            "Himself; no chastity his verses need;",
+            "but nobody ever said his poems\nhad to be censored by the Purity League",
+            "Nay, gain they finally more salt of wit",
+            "    they'd have no fun\n    they'd have no sparkle",
+            "When over softy and of scanty shame,",
+            "without a dash of the age-old itch",
+            "Apt for exciting somewhat prurient,",
+            "and something to rouse the Ancient Urge",
+            "In boys, I say not, but in bearded men",
+            "    (and I don't mean just for you young birds\n    but for those old boys",
+            "Who fail of movements in their hardened loins.",
+            "    who've kinda lost\n    the swing of things)",
+            "Ye who so many thousand kisses sung",
+            "but you\nyou read about a thousand kisses or so",
+            "Have read, deny male masculant I be?",
+            "and want to make a fairy out of me?",
+            "You twain I'll paiedicate and irrumate you",
+            "nuts to you, boys, nuts and go to hell"
         ]
     }
 ]

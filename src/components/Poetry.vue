@@ -8,8 +8,14 @@
                 Gaius Valerius Catullus
             </text>
         </svg>
+        <hr />
+        <p class="credits">
+            <span class="serif">Interpreted by Frank O. Copley - </span>
+            <span class="sans">Daniel Lavery - </span>
+            <span class="extra-serif">Richard Burton</span>
+        </p>
         <template v-for="poem in poetry" :key="poem.title">
-            <h2 :class="classifyText(Number(!whichVersion))">{{ poem.title }}</h2>
+            <h2 :class="poem.styles[Number(!whichVersion)]">{{ poem.title }}</h2>
             <div
                 class="fullPoem"
                 @mousemove="updatePointerPos"
@@ -23,7 +29,7 @@
                     <template v-for="subLine in line.split('\n')" :key="subLine">
                         <p
                             class="poetryLine"
-                            :class="classifyText(i % 2)"
+                            :class="poem.styles[i % 2]"
                             :style="styleText(i % 2)"
                             v-html="subLine"
                         />
@@ -116,7 +122,7 @@ const updatePointerPos = event => {
 const styleText = zeroOrOne => ({
     color: whichVersion.value == !!zeroOrOne ? "rgba(1,1,1,0.15)" : "black"
 });
-const classifyText = zeroOrOne => (zeroOrOne ? "sans" : "serif");
+
 const dominantFont = computed(() => (whichVersion.value ? "Crimson Pro" : "OpenSauceOne"));
 </script>
 
@@ -127,6 +133,13 @@ const dominantFont = computed(() => (whichVersion.value ? "Crimson Pro" : "OpenS
     font-family: "OpenSauceOne";
     src: url("../../public/fonts/opensauceone-regular-webfont.woff2") format("woff2"),
         url("../../public/fonts/opensauceone-regular-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Kontrapunkt Light";
+    src: url("../../public/fonts/Kontrapunkt-Light.woff") format("woff");
     font-weight: normal;
     font-style: normal;
 }
@@ -144,6 +157,25 @@ body {
     margin: 0;
 }
 
+hr {
+    margin: 20px 0;
+}
+
+$serif-scale-factor: 1.2;
+.serif {
+    font-family: "Crimson Pro";
+}
+
+$sans-scale-factor: 1;
+.sans {
+    font-family: "OpenSauceOne";
+}
+
+$extra-serif-scale-factor: 1.1;
+.extra-serif {
+    font-family: "Kontrapunkt Light";
+}
+
 h2 {
     font-weight: normal;
     font-style: italic;
@@ -151,12 +183,13 @@ h2 {
     font-size: 2rem;
     margin: 15px 0;
     &.serif {
-        font-family: "Crimson Pro";
-        font-size: 2rem;
+        font-size: 1.6rem * $serif-scale-factor;
     }
     &.sans {
-        font-family: "OpenSauceOne";
-        font-size: 1.6rem;
+        font-size: 1.6rem * $sans-scale-factor;
+    }
+    &.extra-serif {
+        font-size: 1.6rem * $extra-serif-scale-factor;
     }
 }
 
@@ -166,12 +199,25 @@ h2 {
     line-height: 1.5;
     white-space: pre-wrap;
     &.serif {
-        font-family: "Crimson Pro";
-        font-size: 1.2rem;
+        font-size: 1rem * $serif-scale-factor;
     }
     &.sans {
-        font-family: "OpenSauceOne";
-        font-size: 1rem;
+        font-size: 1rem * $sans-scale-factor;
+    }
+    &.extra-serif {
+        font-size: 1rem * $extra-serif-scale-factor;
+    }
+}
+
+.credits {
+    .serif {
+        font-size: 1.1rem * $serif-scale-factor;
+    }
+    .sans {
+        font-size: 1.1rem * $sans-scale-factor;
+    }
+    .extra-serif {
+        font-size: 1.1rem * $extra-serif-scale-factor;
     }
 }
 
