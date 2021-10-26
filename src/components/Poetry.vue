@@ -190,10 +190,11 @@ h2 {
 #toggle {
     position: fixed;
     top: 100px;
-    right: 50px;
+    left: 75%;
     @media (max-width: 700px) {
         top: 30px;
-        right: 10px;
+        left: unset;
+        right: 5px;
     }
 }
 
@@ -227,11 +228,15 @@ h2 {
 
 // https://www.w3schools.com/howto/howto_css_switch.asp
 
+$switch-width: 40px;
+$switch-height: 23px;
+$toggle-indicator-radius: 18px;
+
 .switch {
     position: relative;
     display: inline-block;
-    width: 30px;
-    height: 17px;
+    width: $switch-width;
+    height: $switch-height;
 }
 
 .switch input {
@@ -250,14 +255,14 @@ h2 {
     background-color: #ccc;
     -webkit-transition: 0.4s;
     transition: 0.4s;
-    border-radius: 17px;
+    border-radius: $switch-height;
 }
 
 .slider:before {
     position: absolute;
     content: "";
-    height: 13px;
-    width: 13px;
+    height: $toggle-indicator-radius;
+    width: $toggle-indicator-radius;
     left: 2px;
     bottom: 2px;
     background-color: white;
@@ -275,8 +280,8 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-    -webkit-transform: translateX(13px);
-    -ms-transform: translateX(13px);
-    transform: translateX(13px);
+    -webkit-transform: translateX($toggle-indicator-radius);
+    -ms-transform: translateX($toggle-indicator-radius);
+    transform: translateX($toggle-indicator-radius);
 }
 </style>
