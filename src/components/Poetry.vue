@@ -39,7 +39,7 @@
                             class="poetryLine"
                             :class="poem.styles[i % 2]"
                             :style="styleText(i % 2)"
-                            v-html="subLine"
+                            v-html="smartquotes(subLine)"
                         />
                     </template>
                 </template>
@@ -87,6 +87,7 @@
 <script setup>
 import { computed, ref, watch } from "vue";
 import poetry from "../assets/lines.json";
+import smartquotes from "smartquotes";
 
 const whichVersion = ref(true);
 const gradientActive = ref(false);
