@@ -39,7 +39,7 @@
                             class="poetryLine"
                             :class="poem.styles[i % 2]"
                             :style="styleText(i % 2)"
-                            v-html="subLine"
+                            v-html="smartquotes(subLine)"
                         />
                     </template>
                 </template>
@@ -87,6 +87,7 @@
 <script setup>
 import { computed, ref, watch } from "vue";
 import poetry from "../assets/lines.json";
+import smartquotes from "smartquotes";
 
 const whichVersion = ref(true);
 const gradientActive = ref(false);
@@ -135,7 +136,7 @@ const dominantFont = computed(() => (whichVersion.value ? "Crimson Pro" : "OpenS
 </script>
 
 <style lang="scss">
-@import "~pretty-checkbox/src/pretty-checkbox.scss";
+@use "sass:math";
 
 @font-face {
     font-family: "OpenSauceOne";
@@ -308,7 +309,7 @@ h2 {
 
 $switch-width: 40px;
 $switch-height: 23px;
-$toggle-indicator-radius: 18px;
+$toggle-indicator-diameter: 18px;
 
 .switch {
     position: relative;
@@ -339,10 +340,10 @@ $toggle-indicator-radius: 18px;
 .slider:before {
     position: absolute;
     content: "";
-    height: $toggle-indicator-radius;
-    width: $toggle-indicator-radius;
-    left: 2px;
-    bottom: 2px;
+    height: $toggle-indicator-diameter;
+    width: $toggle-indicator-diameter;
+    left: math.div($switch-width - $toggle-indicator-diameter * 2, 2);
+    bottom: math.div(($switch-height - $toggle-indicator-diameter), 2);
     background-color: white;
     -webkit-transition: 0.4s;
     transition: 0.4s;
@@ -358,8 +359,8 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-    -webkit-transform: translateX($toggle-indicator-radius);
-    -ms-transform: translateX($toggle-indicator-radius);
-    transform: translateX($toggle-indicator-radius);
+    -webkit-transform: translateX($toggle-indicator-diameter);
+    -ms-transform: translateX($toggle-indicator-diameter);
+    transform: translateX($toggle-indicator-diameter);
 }
 </style>
