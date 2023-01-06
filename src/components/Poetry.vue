@@ -183,7 +183,7 @@ $serif-scale-factor: 1.2;
     font-family: "Crimson Pro";
 }
 
-$sans-scale-factor: 1;
+$sans-scale-factor: 0.95;
 .sans {
     font-family: "OpenSauceOne";
 }
