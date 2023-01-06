@@ -10,9 +10,9 @@
         </svg>
         <hr />
         <p class="credits">
-            <span class="serif">Interpreted by: Frank O. Copley - </span>
-            <span class="sans">Daniel Lavery - </span>
-            <span class="extra-serif">Richard Burton.</span>
+            <span class="sans">Interpreted by: Daniel Lavery (2018) - </span>
+            <span class="serif">Frank O. Copley (1957)</span>
+            <span class="extra-serif"> - Richard Burton (1894).</span>
         </p>
         <p class="toc" :class="poetry[0].styles[Number(whichVersion)]">
             Contents:
