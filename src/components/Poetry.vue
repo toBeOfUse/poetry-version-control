@@ -268,7 +268,7 @@ h2 {
 }
 
 .toc {
-  height: 1.25rem;
+  line-height: 1.25rem;
   &.serif {
     font-size: 1rem * $serif-scale-factor;
   }
