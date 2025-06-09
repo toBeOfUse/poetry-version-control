@@ -47,7 +47,12 @@
     </template>
     <div
       ref="quote"
-      :style="{ background: 'white', fontFamily: dominantFont, margin: '25px 0', color: '#aaa' }"
+      :style="{
+        background: 'white',
+        fontFamily: 'Crimson Pro, serif',
+        margin: '25px 0',
+        color: '#aaa',
+      }"
     >
       <p>
         Around 1916, I decided to devote myself to the study of Oriental literatures. Working with
