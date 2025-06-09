@@ -51,7 +51,7 @@
         background: 'white',
         fontFamily: 'Crimson Pro, serif',
         margin: '25px 0',
-        color: '#aaa',
+        color: '#656565',
       }"
     >
       <p>
