@@ -287,7 +287,7 @@ h2 {
 
 .background {
   width: 50%;
-  max-width: 650px;
+  max-width: 715px;
   padding: 5px;
   background-clip: text;
   -webkit-background-clip: text;
