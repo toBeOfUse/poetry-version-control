@@ -304,7 +304,7 @@ h2 {
 
 #toggle {
   position: fixed;
-  top: 100px;
+  top: 50px;
   left: 75%;
   @media (max-width: 700px) {
     top: 30px;
