@@ -73,7 +73,8 @@
           Then, like Paolo and Francesca, I read no more. A mysterious skepticism had slipped into
           my soul.
         </p>
-        — Jorge Luis Borges
+        — Jorge Luis Borges, "An English Version of the Oldest Songs in the World,"
+        <i>Selected Nonfictions</i>
       </div>
     </details>
   </div>
