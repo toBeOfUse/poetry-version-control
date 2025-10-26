@@ -45,34 +45,37 @@
         </template>
       </div>
     </template>
-    <div
-      ref="quote"
+    <details
       :style="{
         background: 'white',
         fontFamily: 'Crimson Pro, serif',
         margin: '25px 0',
         color: '#656565',
+        margin: '28px 0',
       }"
     >
-      <p>
-        Around 1916, I decided to devote myself to the study of Oriental literatures. Working with
-        enthusiasm and credulity through the English version of a certain Chinese philosopher, I
-        came across this memorable passage: "A man condemned to death doesn't care that he is
-        standing at the edge of a precipice, for he has already renounced life."
-      </p>
+      <summary style="cursor: pointer">Postscript</summary>
+      <div ref="quote">
+        <p>
+          Around 1916, I decided to devote myself to the study of Oriental literatures. Working with
+          enthusiasm and credulity through the English version of a certain Chinese philosopher, I
+          came across this memorable passage: "A man condemned to death doesn't care that he is
+          standing at the edge of a precipice, for he has already renounced life."
+        </p>
 
-      <p>
-        Here the translator attached an asterisk, and his note informed me that this interpretation
-        was preferable to that of a rival Sinologist, who had translated the passage thus: "The
-        servants destroy the works of art, so that they will not have to judge their beauties and
-        defects."
-      </p>
-      <p>
-        Then, like Paolo and Francesca, I read no more. A mysterious skepticism had slipped into my
-        soul.
-      </p>
-      — Borges
-    </div>
+        <p>
+          Here the translator attached an asterisk, and his note informed me that this
+          interpretation was preferable to that of a rival Sinologist, who had translated the
+          passage thus: "The servants destroy the works of art, so that they will not have to judge
+          their beauties and defects."
+        </p>
+        <p>
+          Then, like Paolo and Francesca, I read no more. A mysterious skepticism had slipped into
+          my soul.
+        </p>
+        — Jorge Luis Borges
+      </div>
+    </details>
   </div>
   <div id="gutter" @click="gradientActive = false">
     <div id="toggle">
