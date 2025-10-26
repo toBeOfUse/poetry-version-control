@@ -17,11 +17,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "24.x"
-          cache: "yarn"
+          cache: "pnpm"
       - uses: internet-golf/deploy@v0.1.9
       - run: |
           corepack enable
-          yarn
-          yarn build
+          pnpm i
+          pnpm build
           golf create-deployment catullus.stuffedanimal.family --auth github-oidc
           golf deploy-content catullus.stuffedanimal.family --auth github-oidc --files ./dist
